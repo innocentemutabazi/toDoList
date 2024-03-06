@@ -1,6 +1,8 @@
+// ToDoList.jsx
 import React, { useState } from 'react';
+import './styles.css'; // Import your CSS file
 
-function ToDoList() {
+const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
 
@@ -16,31 +18,32 @@ function ToDoList() {
   };
 
   const handleRemoveTask = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.splice(index, 1);
+    const updatedTasks = tasks.filter((task, i) => i !== index);
     setTasks(updatedTasks);
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>To-Do List</h2>
-      <input
-        type="text"
-        value={newTask}
-        onChange={handleInputChange}
-        placeholder="Enter a new task"
-      />
-      <button onClick={handleAddTask}>Add Task</button>
+      <div className="input-container">
+        <input
+          type="text"
+          value={newTask}
+          onChange={handleInputChange}
+          placeholder="Enter a new task"
+        />
+        <button className="add-button" onClick={handleAddTask}>+</button>
+      </div>
       <ul>
         {tasks.map((task, index) => (
           <li key={index}>
-            {task}
-            <button onClick={() => handleRemoveTask(index)}>Remove</button>
+            <span className="task">{task}</span>
+            <button className="remove-button" onClick={() => handleRemoveTask(index)}>Remove</button>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default ToDoList;
